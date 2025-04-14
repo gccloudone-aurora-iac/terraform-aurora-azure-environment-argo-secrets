@@ -9,7 +9,7 @@
 resource "azurerm_key_vault_secret" "bill_of_landing_sa_bearer_token" {
   count = var.bill_of_landing != null ? 1 : 0
 
-  name         = "${module.azure_resource_prefixes.prefix}-bill-of-landing-sa-bearer-token"
+  name         = "${module.azure_resource_names.name}-bill-of-landing-sa-bearer-token"
   value        = var.bill_of_landing.sa.token
   key_vault_id = var.argocd_keyvault_id
 }
@@ -21,7 +21,7 @@ resource "azurerm_key_vault_secret" "bill_of_landing_sa_bearer_token" {
 resource "azurerm_key_vault_secret" "bill_of_landing_sa_cacert" {
   count = var.bill_of_landing != null ? 1 : 0
 
-  name         = "${module.azure_resource_prefixes.prefix}-bill-of-landing-sa-cacert"
+  name         = "${module.azure_resource_names.name}-bill-of-landing-sa-cacert"
   value        = var.bill_of_landing.sa.caData
   key_vault_id = var.argocd_keyvault_id
 }

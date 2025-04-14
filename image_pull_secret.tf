@@ -9,7 +9,7 @@
 resource "azurerm_key_vault_secret" "cnp_controller_image_pull_secret" {
   count = var.image_pull_secret != null ? 1 : 0
 
-  name         = "${module.azure_resource_prefixes.prefix}-image-pull-secret"
+  name         = "${module.azure_resource_names.name}-image-pull-secret"
   value        = var.image_pull_secret
   key_vault_id = var.argocd_keyvault_id
 }

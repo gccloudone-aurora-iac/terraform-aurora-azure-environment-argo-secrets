@@ -3,7 +3,7 @@
 # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault_secret
 #
 resource "azurerm_key_vault_secret" "azure_subscription_id" {
-  name         = "${module.azure_resource_prefixes.prefix}-subscription-id"
+  name         = "${module.azure_resource_names.name}-subscription-id"
   value        = var.azure_secrets.subscription_id
   key_vault_id = var.argocd_keyvault_id
 }
@@ -13,7 +13,7 @@ resource "azurerm_key_vault_secret" "azure_subscription_id" {
 # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault_secret
 #
 resource "azurerm_key_vault_secret" "azure_tenant_id" {
-  name         = "${module.azure_resource_prefixes.prefix}-tenant-id"
+  name         = "${module.azure_resource_names.name}-tenant-id"
   value        = var.azure_secrets.tenant_id
   key_vault_id = var.argocd_keyvault_id
 }
@@ -27,7 +27,7 @@ resource "azurerm_key_vault_secret" "azure_tenant_id" {
 # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault_secret
 #
 resource "azurerm_key_vault_secret" "load_balancer_subnet_name" {
-  name         = "${module.azure_resource_prefixes.prefix}-load-balancer-subnet-name"
+  name         = "${module.azure_resource_names.name}-load-balancer-subnet-name"
   value        = "loadbalancer"
   key_vault_id = var.argocd_keyvault_id
 }
@@ -41,7 +41,7 @@ resource "azurerm_key_vault_secret" "load_balancer_subnet_name" {
 # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault_secret
 #
 resource "azurerm_key_vault_secret" "cluster_server" {
-  name         = "${module.azure_resource_prefixes.prefix}-server"
+  name         = "${module.azure_resource_names.name}-server"
   value        = var.kubernetes_cluster.server
   key_vault_id = var.argocd_keyvault_id
 }
@@ -51,7 +51,7 @@ resource "azurerm_key_vault_secret" "cluster_server" {
 # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault_secret
 #
 resource "azurerm_key_vault_secret" "argocd_cluster_sa_bearer_token" {
-  name         = "${module.azure_resource_prefixes.prefix}-argocd-sa-bearer-token"
+  name         = "${module.azure_resource_names.name}-argocd-sa-bearer-token"
   value        = var.kubernetes_cluster.argocd_sa.token
   key_vault_id = var.argocd_keyvault_id
 }
@@ -61,7 +61,7 @@ resource "azurerm_key_vault_secret" "argocd_cluster_sa_bearer_token" {
 # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault_secret
 #
 resource "azurerm_key_vault_secret" "argocd_cluster_sa_cacert" {
-  name         = "${module.azure_resource_prefixes.prefix}-argocd-sa-cacert"
+  name         = "${module.azure_resource_names.name}-argocd-sa-cacert"
   value        = var.kubernetes_cluster.argocd_sa.caData
   key_vault_id = var.argocd_keyvault_id
 }

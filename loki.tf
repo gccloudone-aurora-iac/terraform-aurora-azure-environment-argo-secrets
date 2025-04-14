@@ -8,7 +8,7 @@
 # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault_secret
 #
 resource "azurerm_key_vault_secret" "loki_user" {
-  name         = "${module.azure_resource_prefixes.prefix}-loki-user"
+  name         = "${module.azure_resource_names.name}-loki-user"
   value        = var.loki_secrets.username
   key_vault_id = var.argocd_keyvault_id
 }
@@ -28,7 +28,7 @@ resource "random_password" "loki_password" {
 # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault_secret
 #
 resource "azurerm_key_vault_secret" "loki_password" {
-  name         = "${module.azure_resource_prefixes.prefix}-loki-password"
+  name         = "${module.azure_resource_names.name}-loki-password"
   value        = var.loki_secrets.password != null ? var.loki_secrets.password : random_password.loki_password.result
   key_vault_id = var.argocd_keyvault_id
 }
@@ -38,7 +38,7 @@ resource "azurerm_key_vault_secret" "loki_password" {
 # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault_secret
 #
 resource "azurerm_key_vault_secret" "loki_authorization" {
-  name         = "${module.azure_resource_prefixes.prefix}-loki-authorization"
+  name         = "${module.azure_resource_names.name}-loki-authorization"
   value        = "Basic ${base64encode("${azurerm_key_vault_secret.loki_user.value}:${azurerm_key_vault_secret.loki_password.value}")}"
   key_vault_id = var.argocd_keyvault_id
 }
