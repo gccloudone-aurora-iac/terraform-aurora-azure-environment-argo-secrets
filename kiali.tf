@@ -9,7 +9,7 @@
 resource "azurerm_key_vault_secret" "kiali_grafana_token" {
   count = var.kiali_secrets != null ? 1 : 0
 
-  name         = "${module.azure_resource_names.name}-kiali-grafana-token"
+  name         = "${module.azure_resource_names.key_vault_secret_name}-kiali-grafana-token"
   value        = var.kiali_secrets.grafana_token
   key_vault_id = var.argocd_keyvault_id
 }

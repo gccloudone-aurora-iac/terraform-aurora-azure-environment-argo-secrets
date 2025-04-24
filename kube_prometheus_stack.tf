@@ -7,7 +7,7 @@
 # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault_secret
 #
 resource "azurerm_key_vault_secret" "grafana_azuread_oauth_sp_client_id" {
-  name         = "${module.azure_resource_names.name}-grafana-sp-client-id"
+  name         = "${module.azure_resource_names.key_vault_secret_name}-grafana-sp-client-id"
   value        = var.grafana_secrets.sso_service_principal.client_id
   key_vault_id = var.argocd_keyvault_id
 }
@@ -17,7 +17,7 @@ resource "azurerm_key_vault_secret" "grafana_azuread_oauth_sp_client_id" {
 # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault_secret
 #
 resource "azurerm_key_vault_secret" "grafana_azuread_oauth_sp_client_secret" {
-  name         = "${module.azure_resource_names.name}-grafana-sp-client-secret"
+  name         = "${module.azure_resource_names.key_vault_secret_name}-grafana-sp-client-secret"
   value        = var.grafana_secrets.sso_service_principal.client_secret
   key_vault_id = var.argocd_keyvault_id
 }
@@ -41,7 +41,7 @@ resource "random_password" "grafana_admin_password" {
 # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault_secret
 #
 resource "azurerm_key_vault_secret" "grafana_password" {
-  name         = "${module.azure_resource_names.name}-grafana-admin-password"
+  name         = "${module.azure_resource_names.key_vault_secret_name}-grafana-admin-password"
   value        = var.grafana_secrets.admin_password != null ? var.grafana_secrets.admin_password : random_password.grafana_admin_password.result
   key_vault_id = var.argocd_keyvault_id
 }
@@ -57,7 +57,7 @@ resource "azurerm_key_vault_secret" "grafana_password" {
 resource "azurerm_key_vault_secret" "alertmanager_notifications_jira_api_url" {
   count = var.alertmanager_secrets != null ? 1 : 0
 
-  name         = "${module.azure_resource_names.name}-alertmanager-notifications-jira-api-url"
+  name         = "${module.azure_resource_names.key_vault_secret_name}-alertmanager-notifications-jira-api-url"
   value        = var.alertmanager_secrets.jira.api_url
   key_vault_id = var.argocd_keyvault_id
 }
@@ -69,7 +69,7 @@ resource "azurerm_key_vault_secret" "alertmanager_notifications_jira_api_url" {
 resource "azurerm_key_vault_secret" "alertmanager_notifications_jira_user" {
   count = var.alertmanager_secrets != null ? 1 : 0
 
-  name         = "${module.azure_resource_names.name}-alertmanager-notifications-jira-user"
+  name         = "${module.azure_resource_names.key_vault_secret_name}-alertmanager-notifications-jira-user"
   value        = var.alertmanager_secrets.jira.user
   key_vault_id = var.argocd_keyvault_id
 }
@@ -81,7 +81,7 @@ resource "azurerm_key_vault_secret" "alertmanager_notifications_jira_user" {
 resource "azurerm_key_vault_secret" "alertmanager_notifications_jira_password" {
   count = var.alertmanager_secrets != null ? 1 : 0
 
-  name         = "${module.azure_resource_names.name}-alertmanager-notifications-jira-password"
+  name         = "${module.azure_resource_names.key_vault_secret_name}-alertmanager-notifications-jira-password"
   value        = var.alertmanager_secrets.jira.password
   key_vault_id = var.argocd_keyvault_id
 }
@@ -97,7 +97,7 @@ resource "azurerm_key_vault_secret" "alertmanager_notifications_jira_password" {
 resource "azurerm_key_vault_secret" "alertmanager_notifications_msteams_testing" {
   count = var.alertmanager_secrets != null ? 1 : 0
 
-  name         = "${module.azure_resource_names.name}-alertmanager-notifications-msteams-connector-testing"
+  name         = "${module.azure_resource_names.key_vault_secret_name}-alertmanager-notifications-msteams-connector-testing"
   value        = var.alertmanager_secrets.msteams_connector.testing
   key_vault_id = var.argocd_keyvault_id
 }
@@ -109,7 +109,7 @@ resource "azurerm_key_vault_secret" "alertmanager_notifications_msteams_testing"
 resource "azurerm_key_vault_secret" "alertmanager_notifications_msteams_prod_critical" {
   count = var.alertmanager_secrets != null ? 1 : 0
 
-  name         = "${module.azure_resource_names.name}-alertmanager-notifications-msteams-connector-prod-critical"
+  name         = "${module.azure_resource_names.key_vault_secret_name}-alertmanager-notifications-msteams-connector-prod-critical"
   value        = var.alertmanager_secrets.msteams_connector.prod_critical
   key_vault_id = var.argocd_keyvault_id
 }
@@ -121,7 +121,7 @@ resource "azurerm_key_vault_secret" "alertmanager_notifications_msteams_prod_cri
 resource "azurerm_key_vault_secret" "alertmanager_notifications_msteams_prod_major" {
   count = var.alertmanager_secrets != null ? 1 : 0
 
-  name         = "${module.azure_resource_names.name}-alertmanager-notifications-msteams-connector-prod-major"
+  name         = "${module.azure_resource_names.key_vault_secret_name}-alertmanager-notifications-msteams-connector-prod-major"
   value        = var.alertmanager_secrets.msteams_connector.prod_major
   key_vault_id = var.argocd_keyvault_id
 }
@@ -133,7 +133,7 @@ resource "azurerm_key_vault_secret" "alertmanager_notifications_msteams_prod_maj
 resource "azurerm_key_vault_secret" "alertmanager_notifications_msteams_prod_minor" {
   count = var.alertmanager_secrets != null ? 1 : 0
 
-  name         = "${module.azure_resource_names.name}-alertmanager-notifications-msteams-connector-prod-minor"
+  name         = "${module.azure_resource_names.key_vault_secret_name}-alertmanager-notifications-msteams-connector-prod-minor"
   value        = var.alertmanager_secrets.msteams_connector.prod_minor
   key_vault_id = var.argocd_keyvault_id
 }
@@ -145,7 +145,7 @@ resource "azurerm_key_vault_secret" "alertmanager_notifications_msteams_prod_min
 resource "azurerm_key_vault_secret" "alertmanager_notifications_msteams_non_prod_critical" {
   count = var.alertmanager_secrets != null ? 1 : 0
 
-  name         = "${module.azure_resource_names.name}-alertmanager-notifications-msteams-connector-non-prod-critical"
+  name         = "${module.azure_resource_names.key_vault_secret_name}-alertmanager-notifications-msteams-connector-non-prod-critical"
   value        = var.alertmanager_secrets.msteams_connector.non_prod_critical
   key_vault_id = var.argocd_keyvault_id
 }
@@ -157,7 +157,7 @@ resource "azurerm_key_vault_secret" "alertmanager_notifications_msteams_non_prod
 resource "azurerm_key_vault_secret" "alertmanager_notifications_msteams_non_prod_major" {
   count = var.alertmanager_secrets != null ? 1 : 0
 
-  name         = "${module.azure_resource_names.name}-alertmanager-notifications-msteams-connector-non-prod-major"
+  name         = "${module.azure_resource_names.key_vault_secret_name}-alertmanager-notifications-msteams-connector-non-prod-major"
   value        = var.alertmanager_secrets.msteams_connector.non_prod_major
   key_vault_id = var.argocd_keyvault_id
 }
@@ -169,7 +169,7 @@ resource "azurerm_key_vault_secret" "alertmanager_notifications_msteams_non_prod
 resource "azurerm_key_vault_secret" "alertmanager_notifications_msteams_non_prod_minor" {
   count = var.alertmanager_secrets != null ? 1 : 0
 
-  name         = "${module.azure_resource_names.name}-alertmanager-notifications-msteams-connector-non-prod-minor"
+  name         = "${module.azure_resource_names.key_vault_secret_name}-alertmanager-notifications-msteams-connector-non-prod-minor"
   value        = var.alertmanager_secrets.msteams_connector.non_prod_minor
   key_vault_id = var.argocd_keyvault_id
 }
@@ -181,7 +181,7 @@ resource "azurerm_key_vault_secret" "alertmanager_notifications_msteams_non_prod
 resource "azurerm_key_vault_secret" "alertmanager_notifications_msteams_dev_critical" {
   count = var.alertmanager_secrets != null ? 1 : 0
 
-  name         = "${module.azure_resource_names.name}-alertmanager-notifications-msteams-connector-dev-critical"
+  name         = "${module.azure_resource_names.key_vault_secret_name}-alertmanager-notifications-msteams-connector-dev-critical"
   value        = var.alertmanager_secrets.msteams_connector.dev_critical
   key_vault_id = var.argocd_keyvault_id
 }
@@ -193,7 +193,7 @@ resource "azurerm_key_vault_secret" "alertmanager_notifications_msteams_dev_crit
 resource "azurerm_key_vault_secret" "alertmanager_notifications_msteams_dev_major" {
   count = var.alertmanager_secrets != null ? 1 : 0
 
-  name         = "${module.azure_resource_names.name}-alertmanager-notifications-msteams-connector-dev-major"
+  name         = "${module.azure_resource_names.key_vault_secret_name}-alertmanager-notifications-msteams-connector-dev-major"
   value        = var.alertmanager_secrets.msteams_connector.dev_major
   key_vault_id = var.argocd_keyvault_id
 }
@@ -205,7 +205,7 @@ resource "azurerm_key_vault_secret" "alertmanager_notifications_msteams_dev_majo
 resource "azurerm_key_vault_secret" "alertmanager_notifications_msteams_dev_minor" {
   count = var.alertmanager_secrets != null ? 1 : 0
 
-  name         = "${module.azure_resource_names.name}-alertmanager-notifications-msteams-connector-dev-minor"
+  name         = "${module.azure_resource_names.key_vault_secret_name}-alertmanager-notifications-msteams-connector-dev-minor"
   value        = var.alertmanager_secrets.msteams_connector.dev_minor
   key_vault_id = var.argocd_keyvault_id
 }
@@ -221,7 +221,7 @@ resource "azurerm_key_vault_secret" "alertmanager_notifications_msteams_dev_mino
 resource "azurerm_key_vault_secret" "alertmanager_notifications_smtp_smarthost" {
   count = var.alertmanager_secrets != null ? 1 : 0
 
-  name         = "${module.azure_resource_names.name}-alertmanager-notifications-smtp-smarthost"
+  name         = "${module.azure_resource_names.key_vault_secret_name}-alertmanager-notifications-smtp-smarthost"
   value        = var.alertmanager_secrets.smtp.smarthost
   key_vault_id = var.argocd_keyvault_id
 }
@@ -233,7 +233,7 @@ resource "azurerm_key_vault_secret" "alertmanager_notifications_smtp_smarthost" 
 resource "azurerm_key_vault_secret" "alertmanager_notifications_smtp_username" {
   count = var.alertmanager_secrets != null ? 1 : 0
 
-  name         = "${module.azure_resource_names.name}-alertmanager-notifications-smtp-username"
+  name         = "${module.azure_resource_names.key_vault_secret_name}-alertmanager-notifications-smtp-username"
   value        = var.alertmanager_secrets.smtp.username
   key_vault_id = var.argocd_keyvault_id
 }
@@ -245,7 +245,7 @@ resource "azurerm_key_vault_secret" "alertmanager_notifications_smtp_username" {
 resource "azurerm_key_vault_secret" "alertmanager_notifications_smtp_password" {
   count = var.alertmanager_secrets != null ? 1 : 0
 
-  name         = "${module.azure_resource_names.name}-alertmanager-notifications-smtp-password"
+  name         = "${module.azure_resource_names.key_vault_secret_name}-alertmanager-notifications-smtp-password"
   value        = var.alertmanager_secrets.smtp.password
   key_vault_id = var.argocd_keyvault_id
 }
