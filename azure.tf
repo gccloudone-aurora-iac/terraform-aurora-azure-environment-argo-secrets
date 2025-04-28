@@ -28,7 +28,7 @@ resource "azurerm_key_vault_secret" "azure_tenant_id" {
 #
 resource "azurerm_key_vault_secret" "load_balancer_subnet_name" {
   name         = "${module.azure_resource_names.key_vault_secret_name}-load-balancer-subnet-name"
-  value        = "loadbalancer"
+  value        = var.load_balancer_subnet_name
   key_vault_id = var.argocd_keyvault_id
 }
 

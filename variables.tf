@@ -37,6 +37,12 @@ variable "argocd_keyvault_id" {
   type        = string
 }
 
+variable "load_balancer_subnet_name" {
+  description = "The Azure load balancer subnet name"
+  type        = string
+  default     = "loadbalancer"
+}
+
 ###############
 ### Secrets ###
 ###############
