@@ -224,3 +224,17 @@ variable "alertmanager_secrets" {
   default   = null
   sensitive = true
 }
+
+variable "thanos_secrets" {
+  description = "The secrets for the Thanos component."
+  type = object({
+    aad_pod_identity = object({
+      client_id   = string
+      resource_id = string
+    })
+    storage_account = object({
+      name                = string
+      resource_group_name = string
+    })
+  })
+}
