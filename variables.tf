@@ -224,3 +224,12 @@ variable "alertmanager_secrets" {
   default   = null
   sensitive = true
 }
+
+variable "thanos_secrets" {
+  description = "The secrets for the Thanos component."
+  type = object({
+    identity_client_id   = string
+    storage_account_name = string
+  })
+  default = null
+}
