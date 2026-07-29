@@ -171,6 +171,17 @@ module "argocd_secrets" {
       client_id     = "test"
       client_secret = "test"
     }
+    alert_templates = {
+      test = {
+        authorization_credentials = "test"
+      }
+    }
+    alert_contacts = {
+      test = {
+        email = "test"
+        name = "test"
+      }
+    }
   }
   alertmanager_secrets = {
     jira = {

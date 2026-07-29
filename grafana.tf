@@ -50,14 +50,20 @@ resource "azurerm_key_vault_secret" "grafana_password" {
 ### Grafana - Alerting ###
 ##########################
 
+# Extracts the names from the secret mapping
+locals {
+  grafana_template_auth = toset(nonsensitive(keys(var.grafana_secrets.alert_templates)))
+  grafana_alert_contact = toset(nonsensitive(keys(var.grafana_secrets.alert_contacts)))
+}
+
 # Creates the webhook auth which are used for the templates
 #
 # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault_secret
 #
 resource "azurerm_key_vault_secret" "grafana_alert_template_auth" {
-  for_each     = var.grafana_secrets.alert_templates
+  for_each     = local.grafana_template_auth
   name         = "${module.azure_resource_names.key_vault_secret_name}-grafana-${each.key}-webhook-auth"
-  value        = each.value.authorization_credentials
+  value        = var.grafana_secrets.alert_templates[each.key].authorization_credentials
   key_vault_id = var.argocd_keyvault_id
 }
 
@@ -66,9 +72,9 @@ resource "azurerm_key_vault_secret" "grafana_alert_template_auth" {
 # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault_secret
 #
 resource "azurerm_key_vault_secret" "grafana_alert_contact_name" {
-  for_each     = var.grafana_secrets.alert_contacts
+  for_each     = local.grafana_alert_contact
   name         = "${module.azure_resource_names.key_vault_secret_name}-grafana-${each.key}-name"
-  value        = each.value.name
+  value        = var.grafana_secrets.alert_contacts[each.key].name
   key_vault_id = var.argocd_keyvault_id
 }
 
@@ -77,8 +83,8 @@ resource "azurerm_key_vault_secret" "grafana_alert_contact_name" {
 # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault_secret
 #
 resource "azurerm_key_vault_secret" "grafana_alert_contact_email" {
-  for_each     = var.grafana_secrets.alert_contacts
+  for_each     = local.grafana_alert_contact
   name         = "${module.azure_resource_names.key_vault_secret_name}-grafana-${each.key}-email"
-  value        = each.value.email
+  value        = var.grafana_secrets.alert_contacts[each.key].email
   key_vault_id = var.argocd_keyvault_id
 }
