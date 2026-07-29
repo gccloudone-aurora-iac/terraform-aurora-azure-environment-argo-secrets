@@ -46,6 +46,43 @@ resource "azurerm_key_vault_secret" "grafana_password" {
   key_vault_id = var.argocd_keyvault_id
 }
 
+##########################
+### Grafana - Alerting ###
+##########################
+
+# Creates the webhook auth which are used for the templates
+#
+# https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault_secret
+#
+resource "azurerm_key_vault_secret" "grafana_alert_template_auth" {
+  for_each     = var.grafana_secrets.alert_templates
+  name         = "${module.azure_resource_names.key_vault_secret_name}-grafana-${each.key}-webhook-auth"
+  value        = each.value.authorization_credentials
+  key_vault_id = var.argocd_keyvault_id
+}
+
+# Creates the contact point details for the alerts to be sent out to
+#
+# https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault_secret
+#
+resource "azurerm_key_vault_secret" "grafana_alert_contact_name" {
+  for_each     = var.grafana_secrets.alert_contacts
+  name         = "${module.azure_resource_names.key_vault_secret_name}-grafana-${each.key}-name"
+  value        = each.value.name
+  key_vault_id = var.argocd_keyvault_id
+}
+
+# Creates the contact point details for the alerts to be sent out to
+#
+# https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault_secret
+#
+resource "azurerm_key_vault_secret" "grafana_alert_contact_email" {
+  for_each     = var.grafana_secrets.alert_contacts
+  name         = "${module.azure_resource_names.key_vault_secret_name}-grafana-${each.key}-email"
+  value        = each.value.email
+  key_vault_id = var.argocd_keyvault_id
+}
+
 ###########################
 ### AlertManager - Jira ###
 ###########################
