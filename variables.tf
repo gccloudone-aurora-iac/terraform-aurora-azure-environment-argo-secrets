@@ -191,6 +191,13 @@ variable "grafana_secrets" {
       client_id     = string
       client_secret = string
     })
+    alert_templates = optional(map(object({
+      authorization_credentials = string
+    })), {})
+    alert_contacts = optional(map(object({
+      email = string
+      name = string
+    })), {})
   })
   sensitive = true
 }
