@@ -175,10 +175,39 @@ variable "loki_secrets" {
   type = object({
     username = optional(string, "loki-ingest")
     password = optional(string)
+    htpasswd = optional(string)
   })
   default = {
     username = "loki-ingest"
     password = null
+    htpasswd = null
+  }
+  sensitive = true
+}
+
+variable "teams_secrets" {
+  description = "The secrets for alertmanager teamsv2 notifications."
+  type = object({
+    prod_critical = optional(string)
+    prod_major = optional(string)
+    prod_minor = optional(string)
+    non_prod_critical = optional(string)
+    non_prod_major = optional(string)
+    non_prod_minor = optional(string)
+    dev_critical = optional(string)
+    dev_major = optional(string)
+    dev_minor = optional(string)
+  })
+  default = {
+    prod_critical = null
+    prod_major = null
+    prod_minor = null
+    non_prod_critical = null
+    non_prod_major = null
+    non_prod_minor = null
+    dev_critical = null
+    dev_major = null
+    dev_minor = null
   }
   sensitive = true
 }
