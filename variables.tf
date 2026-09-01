@@ -198,17 +198,7 @@ variable "teams_secrets" {
     dev_major = optional(string)
     dev_minor = optional(string)
   })
-  default = {
-    prod_critical = null
-    prod_major = null
-    prod_minor = null
-    non_prod_critical = null
-    non_prod_major = null
-    non_prod_minor = null
-    dev_critical = null
-    dev_major = null
-    dev_minor = null
-  }
+  default = {}
   sensitive = true
 }
 
