@@ -49,6 +49,6 @@ resource "azurerm_key_vault_secret" "loki_authorization" {
 #
 resource "azurerm_key_vault_secret" "loki_htpasswd" {
   name         = "${module.azure_resource_names.key_vault_secret_name}-loki-htpasswd"
-  value        = "${var.loki_secrets.username}:${random_password.loki_password.bcrypt_hash}"
+  value        = var.loki_secrets.password != null ? var.loki_secrets.htpasswd : "${var.loki_secrets.username}:${random_password.loki_password.bcrypt_hash}"
   key_vault_id = var.argocd_keyvault_id
 }
