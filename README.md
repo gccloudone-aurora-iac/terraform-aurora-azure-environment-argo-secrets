@@ -61,4 +61,5 @@ Examples for this module along with various configurations can be found in the [
 | 2025-10-20 | v2.0.1  | Pin minimum version of azurerm to 4.49.0           |
 | 2026-06-17 | v2.1.0  | Add Thanos client id and storage account secrets   |
 | 2026-07-29 | v2.2.0  | Adding Grafana Alerting secrets                    |
-| 2026-09-31 | v2.3.0  | Adding secrets for loki and msteams                |
+| 2026-09-01 | v2.3.0  | Adding secrets for loki and msteams                |
+| 2026-09-01 | v2.3.1  | Fixing loki secret configuration                   |
