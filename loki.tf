@@ -42,3 +42,13 @@ resource "azurerm_key_vault_secret" "loki_authorization" {
   value        = "Basic ${base64encode("${azurerm_key_vault_secret.loki_user.value}:${azurerm_key_vault_secret.loki_password.value}")}"
   key_vault_id = var.argocd_keyvault_id
 }
+
+# Manages a Key Vault Secret of the htpasswd for Loki used for authentication.
+#
+# https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault_secret
+#
+resource "azurerm_key_vault_secret" "loki_htpasswd" {
+  name         = "${module.azure_resource_names.key_vault_secret_name}-loki-htpasswd"
+  value        = "${var.loki_secrets.username}:${random_password.loki_password.bcrypt_hash}"
+  key_vault_id = var.argocd_keyvault_id
+}
